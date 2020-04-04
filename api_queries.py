@@ -28,7 +28,8 @@ def parse_entry(entry):
     names = [author.find("atom:name", namespace).text for author in authors]
     title = entry.find("atom:title", namespace).text
     abstract = entry.find("atom:summary", namespace).text
-    data = {"authors": names, "title": title, "abstract": abstract}
+    cat = entry.find("atom:category", namespace).find("atom:term", namespace).text
+    data = {"authors": names, "title": title, "abstract": abstract, "category": cat}
     return data
 
 
