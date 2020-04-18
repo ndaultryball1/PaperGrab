@@ -1,0 +1,4 @@
+PaperGrab
+sqlite==3.31
+urllib3==1.25
+pytest==5.4
