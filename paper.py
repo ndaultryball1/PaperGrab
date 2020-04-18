@@ -1,9 +1,10 @@
-from papergrab import arxiv_download, extract_num
-from api_queries import get_entry, parse_entry
+from utils.data_utils import arxiv_download, extract_num
+from utils.api_queries import get_entry, parse_entry
 
 
 class ArxivPaper:
     metadata = None
+    loc = None
 
     def __init__(self, number):
         self.number = number
@@ -19,7 +20,9 @@ class ArxivPaper:
     @classmethod
     def from_file(cls, path):
         number = extract_num(path)
-        return cls(number)
+        paper = cls(number)
+        paper.loc = path
+        return paper
 
     @property
     def authors(self):
@@ -51,3 +54,4 @@ class ArxivPaper:
 
     def download(self, path):
         arxiv_download(self.file_url, path)
+        self.loc = path

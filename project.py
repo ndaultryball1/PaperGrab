@@ -11,7 +11,9 @@ class Project:
     def __init__(self, dir):
         self.root = dir
         self.server = dir + "/grab.db"
-        conn = sqlite3.connect(dir + "/grab.db")
+
+    def create_db(self):
+        conn = sqlite3.connect(dir + "/grab.db")  # TODO: turn this into a coroutine with a finally clause
         c = conn.cursor()
         c.execute(
             """CREATE TABLE papers
@@ -20,16 +22,16 @@ class Project:
         conn.commit()
         conn.close()
 
-    def add(self, file):
+    def add(self, paper: ArxivPaper):
+        # Adds a paper to an existing project.
         conn = sqlite3.connect(self.server)
         c = conn.cursor()
-        paper = ArxivPaper.from_file(file)
         data = Record(
             title=paper.title,
-            first_author=paper.author[0],
+            first_author=paper.authors[0],
             category=paper.category,
             id=paper.number,
-            loc=file,
+            loc=paper.loc,
             abstract=paper.abstract,
         )
         c.execute("INSERT INTO papers VALUES (?, ?, ?, ?, ?)", data)
