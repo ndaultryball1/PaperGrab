@@ -18,7 +18,7 @@ def get_entry(number):
     return root.find("atom:entry", namespace)
 
 
-def parse_entry(entry):
+def parse_entry(entry):  # TODO: make this return a namedtuple for robustness
     """
     Get metadata from an entry returned by API query.
     :param entry: An XML Element object
@@ -28,7 +28,7 @@ def parse_entry(entry):
     names = [author.find("atom:name", namespace).text for author in authors]
     title = entry.find("atom:title", namespace).text
     abstract = entry.find("atom:summary", namespace).text
-    cat = entry.find("atom:category", namespace).find("atom:term", namespace).text
+    cat = entry.find("atom:category", namespace).attrib["term"]
     data = {"authors": names, "title": title, "abstract": abstract, "category": cat}
     return data
 

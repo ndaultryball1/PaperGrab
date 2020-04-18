@@ -6,6 +6,8 @@ Record = namedtuple(
     "Record", ["title", "first_author", "category", "id", "loc", "abstract"]
 )
 
+def record_factory(cursor, row):
+    return Record(*row)
 
 class Project:
     def __init__(self, dir):
@@ -13,7 +15,7 @@ class Project:
         self.server = dir + "/grab.db"
 
     def create_db(self):
-        conn = sqlite3.connect(dir + "/grab.db")  # TODO: turn this into a coroutine with a finally clause
+        conn = sqlite3.connect(self.server)  # TODO: turn this into a coroutine with a finally clause
         c = conn.cursor()
         c.execute(
             """CREATE TABLE papers
@@ -31,9 +33,16 @@ class Project:
             first_author=paper.authors[0],
             category=paper.category,
             id=paper.number,
-            loc=paper.loc,
+            loc=str(paper.loc),
             abstract=paper.abstract,
         )
-        c.execute("INSERT INTO papers VALUES (?, ?, ?, ?, ?)", data)
+        c.execute("INSERT INTO papers VALUES (?, ?, ?, ?, ?, ?)", data)
         conn.commit()
         conn.close()
+
+    def load_id(self, id):
+        conn = sqlite3.connect(self.server)
+        conn.row_factory = record_factory
+        c = conn.cursor()
+        c.execute("SELECT * FROM papers WHERE id = (?)", (id,))
+        return c.fetchone()

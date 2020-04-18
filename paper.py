@@ -28,7 +28,7 @@ class ArxivPaper:
     def authors(self):
         if self.metadata is None:
             self.get_metadata()
-        return self.metadata["author"]
+        return self.metadata["authors"]
 
     @property
     def abstract(self):
