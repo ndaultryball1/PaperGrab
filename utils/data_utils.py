@@ -40,7 +40,10 @@ def extract_num(path):
         except ValueError:
             raise PaperError("ID not found - please ensure this is an Arxiv paper")
 
+
 if __name__ == "__main__":
+    from commands import new
+    args = {"a": True}
     eg_path = "C://Users//Nicholas//example.pdf"
     arxiv_download("https://export.arxiv.org/pdf/2004.01128v1.pdf", eg_path)
     print(extract_num(eg_path))

@@ -23,7 +23,7 @@ class TestArxivPaper:
         assert os.path.exists(paper_loc)
 
     def test_from_number(self, paper_example):
-        assert paper_example.number == eg_id
+        assert paper_example.id == eg_id
 
     def test_extract(self, paper_loc):
         assert extract_num(paper_loc) == eg_id

@@ -7,15 +7,15 @@ class ArxivPaper:
     loc = None
 
     def __init__(self, number):
-        self.number = number
+        self.id = number
 
     @property
     def file_url(self):
-        return "https://export.arxiv.org/pdf/" + self.number + ".pdf"
+        return "https://export.arxiv.org/pdf/" + self.id + ".pdf"
 
     @property
     def page_url(self):
-        return "https://export.arxiv.org/abs/" + self.number
+        return "https://export.arxiv.org/abs/" + self.id
 
     @classmethod
     def from_file(cls, path):
@@ -49,7 +49,7 @@ class ArxivPaper:
         return self.metadata["category"]
 
     def get_metadata(self):
-        entry = get_entry(self.number)
+        entry = get_entry(self.id)
         self.metadata = parse_entry(entry)
 
     def download(self, path):
