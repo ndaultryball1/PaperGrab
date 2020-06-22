@@ -11,5 +11,9 @@ Future features:
 from command line
 * More interaction with ArXiv API - search for other papers from same authors, similar topics, or by keyword,
  and then download and catalogue them to the project.
+ 
+ Concrete plans
+ * command line arguments for searching for papers by name, author
+ * Method to display the result of the search to display
 
 

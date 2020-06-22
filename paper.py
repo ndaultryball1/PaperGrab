@@ -3,6 +3,11 @@ from utils.api_queries import get_entry, parse_entry
 
 
 class ArxivPaper:
+    """
+    An ArxivPaper represents a paper sitting on Arxiv. It is responsible for fetching a paper and its
+    metadata from archive. It is an abstraction over both the calls to Arxiv API, and the pysical location of
+    the paper on the user machine.
+    """
     metadata = None
     loc = None
 

@@ -26,3 +26,16 @@ def new(args):
         papers = get_all_in_dir(cwd)
         for paper in papers:
             new_project.add(paper)
+
+
+def add(args):
+    """
+    Adds a paper to an existing project
+    :param args:
+    :return:
+    """
+    paths = args.files
+    cwd = os.getcwd()
+    project = Project.get_current_project(cwd)
+    files_list = [os.path.join(cwd, path) for path in paths]
+
