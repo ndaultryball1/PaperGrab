@@ -46,10 +46,9 @@ class Project:
 
     @classmethod
     def get_current_project(cls, dir):
-        found = False
-        while not found:
+        while True:
             try:
-                cls.load(dir)
+                return cls.load(dir)
             except ProjectNotFound:
                 newdir = os.path.join(dir, os.pardir)
                 if newdir == dir:
